@@ -16,7 +16,7 @@ class Message(models.Model):
   room = models.CharField(max_length=100000)
 
   def __str__(self):
-      return self.room
+      return self.room + ' By: ' + self.user
   
 
 

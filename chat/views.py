@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from .models import Room, Message
 # Create your views here.
@@ -50,3 +50,13 @@ def send(request):
     new_message.save()
     # اظهار هذه الرسالة بعد الاتمام
     return HttpResponse('Messge Sent Saccessfully')
+
+# موجود في الاجاكس الاول
+def getmessages(request, room):
+    # جلب الروم بالاسم الموجود في الرابط
+    detail = Room.objects.get(name=room)
+
+    # جلب ايدي الرسالة
+    messages = Message.objects.filter(room=detail.id)
+    # ارجاع قيم الرسائل لدي هذا الايدي بالجسون لاستخدامها في الاجاكس
+    return JsonResponse({'messages':list(messages.values())})
