@@ -60,3 +60,9 @@ def getmessages(request, room):
     messages = Message.objects.filter(room=detail.id)
     # ارجاع قيم الرسائل لدي هذا الايدي بالجسون لاستخدامها في الاجاكس
     return JsonResponse({'messages':list(messages.values())})
+
+
+
+
+def test(request):
+    return render(request,'test.html')

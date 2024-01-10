@@ -64,27 +64,38 @@ body {
     <style>
     input[type=text], select {
     width: 100%;
+    box-shadow: 0 0 5px aqua;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 10px;
     box-sizing: border-box;
+    }
+
+    input[type=text]:hover{
+      box-shadow: 0 0 5px blue;
+    }
+
+    input[type=text]:active{
+      border: none;
     }
 
     input[type=submit] {
     width: 100%;
     background-color: #4CAF50;
+    box-shadow: 0 0 20px blueviolet;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 20px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
     }
 
     input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: #2d4bf5;
+    box-shadow: 0 0 20px aqua;
     }
 
     div {
@@ -97,9 +108,9 @@ body {
     <form id="post-form" method="POST" action="check">
         {% csrf_token %}
         <label>Room Name</label>
-        <input type="text" name="room_name" id="room_name" width="100px" />
+        <input type="text" name="room_name" required id="room_name" width="100px" />
         <label>Username</label>
-        <input type="text" name="username" id="username" width="100px" />
+        <input type="text" name="username" required id="username" width="100px" />
         <input type="submit" value="Enter Room">
     </form>
 </div>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <nav class="navbar navbar-light bg-light">
   <nas class="ahmed">
@@ -13,8 +13,8 @@
       
     </a>
   </nas>
-</nav>
-<style>
+</nav> -->
+<!-- <style>
 body {
   margin: 0 auto;
   max-width: 800px;
@@ -61,29 +61,161 @@ body {
   float: right;
   color: #aaa;
 }
-
+.user-message{
+  background-color: rgb(201, 215, 221);
+}
+.othor-message{
+  background-color: rgb(48, 48, 247);
+}
 .time-left {
   float: left;
   color: #54ca6e;
 }
+.containera{
+  width: 50%;
+  background-color: #aaa;
+}
+</style> -->
+
+
+<style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .chat-container {
+            max-width: 400px;
+            margin: 50px auto 0px;
+            background-color: #fff;
+            border-radius: 8px 0 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #4e63d9;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .chat-messages {
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .othor{
+          align-items: end;
+        }
+
+        .message .sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .message .text {
+            background-color: #e1e1e1;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .message .othor-user{
+          background-color: #5970f7;
+          color: white;
+        }
+
+        .date{
+          
+          font-size: x-small;
+          color: dimgray;
+          margin: 1px;
+          
+        }
+
+
+        .chat-input {
+            display: flex;
+            
+            margin: auto;
+            max-width: 380px;
+            padding: 10px;
+            border-radius: 0 0 8px 8px;
+            background-color: #f8f8f8;
+        }
+
+        .input-box {
+            flex-grow: 1;
+            display: inline;
+            width: 290px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .send-button {
+            background-color: #4e63d9;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 </style>
+
+
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
 
 <h2 style="text-align: center;">{{room|capfirst}} - DjChat</h2>
 
-<div id="display">
 
-<!-- <div class="container darker">
-  <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
-  <span class="time-left">20th, April 2021</span>
-</div> -->
 
-</div>
+  <div class="chat-container">
+    <div class="chat-header">
+        Messenger-Like Chat
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div id="display">
+        <!-- Messages will be added here -->
+        <!-- <div class="message">
+          <span class="sender">AHmed</span>
+          <span class="text">hello</span>
+        </div>
+        <div class="message othor">
+          <span class="sender">AHmed</span>
+          <span class="text othor-user">hello</span>
+          <span class="date">12/25//1/5</span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+
 
 <!-- لاظهار الرسائل فور ارسالها -->
 <script>
+// تابع لتحويل تاريخ الرسالة إلى تنسيق قراءة مقبول
+function formatMessageDate(dateString) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    return formattedDate;
+}
+
 $(document).ready(function(){
 
 setInterval(function(){
@@ -99,9 +231,15 @@ setInterval(function(){
             // عمل متغير باسم كي يحتوي علي الماسج من الفيو
             for (var key in response.messages)
             {
-                                                                  // جلب التاريخ                                                 جلب الرسالة                          جلب اسم الراسل
-                var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
+                var userClass = (response.messages[key].user === "{{username}}") ? 'othor':'';
+                var messageClass = (response.messages[key].user === "{{username}}") ? 'othor-user':'';
+                
+                var temp = "<div class='message " + userClass + "'>\
+                  <span class='sender'>" + response.messages[key].user + "</span>\
+                  <span class='text " + messageClass + "'>" + response.messages[key].value + "</span>\
+                  <span class='date'>" + formatMessageDate(response.messages[key].date) + "</span></div>";
                 $("#display").append(temp);
+                
             }
         },
         error: function(response){
@@ -113,8 +251,8 @@ setInterval(function(){
 </script>
 
 
-<div class="container">
-    <style>
+<!--<div class="container">
+     <style>
     input[type=text], select {
     width: 100%;
     padding: 12px 20px;
@@ -145,7 +283,7 @@ setInterval(function(){
     background-color: #f2f2f2;
     padding: 20px;
     }
-    </style>
+    </style> 
 
     <form id="post-form">
         {% csrf_token %}
@@ -154,6 +292,16 @@ setInterval(function(){
         <input type="text" name="message" id="message" width="100px" />
         <input type="submit" value="Send">
     </form> 
+</div>-->
+
+<div class="chat-input">
+  <form id="post-form">
+    {% csrf_token %}
+    <input type="hidden" name="username" id="username" value="{{username}}"/>
+    <input type="hidden" name="room_id" id="room_id" value="{{detail.id}}"/>
+    <input type="text" class="input-box" name="message" id="message" required placeholder="Type your message...">
+    <input class="send-button" type="submit" value="Send">
+  </form>
 </div>
 
 
@@ -176,7 +324,7 @@ setInterval(function(){
         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
       },
       success: function(data){
-         alert(data)
+        //  alert(data)
       }
     });
     document.getElementById('message').value = ''

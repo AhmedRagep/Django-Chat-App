@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messenger-Like Chat</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .chat-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #4e63d9;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .chat-messages {
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .othor{
+          align-items: end;
+        }
+
+        .message .sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .message .text {
+            background-color: #e1e1e1;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .message .othor-user{
+          background-color: #5970f7;
+          color: white;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background-color: #f8f8f8;
+        }
+
+        .input-box {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .send-button {
+            background-color: #4e63d9;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            Messenger-Like Chat
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be added here -->
+            <div class="message">
+              <span class="sender">AHmed</span>
+              <span class="text">hello</span>
+            </div>
+            <div class="message othor">
+              <span class="sender">AHmed</span>
+              <span class="text othor-user">hello</span>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" class="input-box" id="message-input" placeholder="Type your message...">
+            <button class="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var messageInput = document.getElementById("message-input");
+            var messageText = messageInput.value.trim();
+
+            if (messageText !== "") {
+                var chatMessages = document.getElementById("chat-messages");
+
+                var messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+
+                var senderSpan = document.createElement("span");
+                senderSpan.classList.add("sender");
+                senderSpan.textContent = "You:";
+
+                var textSpan = document.createElement("span");
+                textSpan.classList.add("text");
+                textSpan.textContent = messageText;
+
+                messageDiv.appendChild(senderSpan);
+                messageDiv.appendChild(textSpan);
+
+                chatMessages.appendChild(messageDiv);
+
+                messageInput.value = "";
+                messageInput.focus();
+            }
+        }
+    </script>
+</body>
+</html>
